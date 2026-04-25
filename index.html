@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Arc Journal</title>
+</head>
+<body>
+
+<h2>Write to Blockchain</h2>
+
+<input id="msg" placeholder="Write something..." />
+<button onclick="send()">Send</button>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+
+<script>
+const contractAddress = "DEPLOY_ADRESİN";
+const abi = [
+  "function write(string memory _message)"
+];
+
+async function send() {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  await provider.send("eth_requestAccounts", []);
+  const signer = provider.getSigner();
+
+  const contract = new ethers.Contract(contractAddress, abi, signer);
+
+  const message = document.getElementById("msg").value;
+
+  const tx = await contract.write(message);
+  await tx.wait();
+
+  alert("Saved on-chain!");
+}
+</script>
+
+</body>
+</html>
