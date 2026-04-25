@@ -11,6 +11,8 @@ contract ArcJournal {
     Entry[] public entries;
 }
 function write(string memory _message) public {
-    entries.push(Entry(msg.sender, _message, block.timestamp));
+    require(bytes(_message).length > 0, "Empty message");
+
+entries.push(Entry(msg.sender, _message, block.timestamp));
 }
 add write function
