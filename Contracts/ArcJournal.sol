@@ -30,4 +30,5 @@ contract ArcJournal {
 function write(string memory _message) public {
     entries.push(Entry(msg.sender, _message, block.timestamp));
 }
+git commit -m "add write function to store messages"
 }
